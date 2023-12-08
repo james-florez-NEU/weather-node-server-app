@@ -4,6 +4,7 @@ import "dotenv/config";
 import cors from "cors";
 import mongoose from "mongoose";
 import UserRoutes from "./users/routes.js";
+import ChannelRoutes from "./channels/routes.js";
 import Weather from "./weather/weather.js";
 
 mongoose.connect(process.env.DB_CONNECTION_STRING);
@@ -32,6 +33,7 @@ app.use(
 app.use(express.json());
 
 UserRoutes(app);
+ChannelRoutes(app);
 Weather(app);
 
 app.listen(process.env.PORT || 4000);
