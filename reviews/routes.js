@@ -27,6 +27,13 @@ function ReviewRoutes(app) {
         const status = await dao.updateReview(reviewId, review);
         res.json(status);
     }
+    const flagReview = async (req, res) => {
+        const { reviewId } = req.params;
+        let review = await dao.findReviewById(reviewId);
+        review.flaggedForModeration = true;
+        const status = await dao.updateReview(reviewId, review);
+        res.json(status);
+    }
 
     app.get("/api/reviews", findAllReviews);
     app.get("/api/reviews/newest", findNewestReviews);
@@ -34,5 +41,6 @@ function ReviewRoutes(app) {
     app.post("/api/reviews/create", createReview);
     app.delete("/api/reviews/:reviewId", deleteReview);
     app.put("/api/reviews/approve/:reviewId", approveReview);
+    app.put("/api/reviews/flag/:reviewId", flagReview);
 }
 export default ReviewRoutes;
