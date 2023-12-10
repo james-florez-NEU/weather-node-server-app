@@ -57,6 +57,8 @@ function UserRoutes(app) {
         let user = await dao.findUserById(userId);
         user.favorites.push(locationId);
         const status = await dao.updateUser(userId, user);
+        const currentUser = await dao.findUserById(userId);
+        req.session['currentUser'] = currentUser;
         res.json(status);
     }
 
