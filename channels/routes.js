@@ -8,7 +8,6 @@ function ChannelRoutes(app) {
         const channel = await dao.findChannelById(req.params.channelId);
         res.json(channel);
     }
-
     app.get("/api/channels", findAllChannels);
     app.get("/api/channels/:channelId", findChannelById);
 }
