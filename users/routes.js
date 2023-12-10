@@ -61,6 +61,16 @@ function UserRoutes(app) {
         req.session['currentUser'] = currentUser;
         res.json(status);
     }
+    const addFavoriteChannel = async (req, res) => {
+        const { userId } = req.params;
+        const { channelId } = req.body;
+        let user = await dao.findUserById(userId);
+        user.favoriteChannels.push(channelId);
+        const status = await dao.updateUser(userId, user);
+        const currentUser = await dao.findUserById(userId);
+        req.session['currentUser'] = currentUser;
+        res.json(status);
+    }
 
     app.post("/api/users", createUser);
     app.get("/api/users", findAllUsers);
@@ -72,5 +82,6 @@ function UserRoutes(app) {
     app.post("/api/users/signout", signout);
     app.post("/api/users/account", account);
     app.post("/api/users/favorites/:userId", addFavoriteLocation);
+    app.post("/api/users/favoriteChannels/:userId", addFavoriteChannel);
 }
 export default UserRoutes;
