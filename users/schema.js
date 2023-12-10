@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema({
             type: String,
             enum: ["USER", "FORECASTER", "MODERATOR"],
             default: "USER" },
+        favorites: [String],
+        favoriteChannels: [String],
     },
     { collection: "users" });
 export default userSchema;
