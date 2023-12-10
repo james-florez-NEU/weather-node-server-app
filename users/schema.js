@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         favorites: [String],
         favoriteChannels: [String],
         paymentAddress: String,
-        channelAffiliation: [String],
+        channelAffiliations: [String],
     },
     { collection: "users" });
 export default userSchema;
