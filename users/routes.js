@@ -51,6 +51,15 @@ function UserRoutes(app) {
             res.status(403).json({ message: "Not logged in" });
         }
     };
+    const addFavoriteLocation = async (req, res) => {
+        const { userId } = req.params;
+        const { locationId } = req.body;
+        let user = await dao.findUserById(userId);
+        user.favorites.push(locationId);
+        const status = await dao.updateUser(userId, user);
+        res.json(status);
+    }
+
     app.post("/api/users", createUser);
     app.get("/api/users", findAllUsers);
     app.get("/api/users/:userId", findUserById);
@@ -60,5 +69,6 @@ function UserRoutes(app) {
     app.post("/api/users/signin", signin);
     app.post("/api/users/signout", signout);
     app.post("/api/users/account", account);
+    app.post("/api/users/favorites/:userId", addFavoriteLocation);
 }
 export default UserRoutes;
